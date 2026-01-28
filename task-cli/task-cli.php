@@ -60,6 +60,7 @@ function updateTaskStatus($id, $newStatus){
     $tasks = loadTasks();
     $found = false;
     foreach($tasks as &$task){
+    // Procura a tarefa pelo ID    
     if ($task['id']==$id){
           $task['status']=$newStatus;  
           $task['UpdatedAt'] = date("Y-m-d H:i:s");
@@ -79,6 +80,7 @@ function deleteTask($id){
     $tasks = loadTasks();
     $found = false;
     foreach ($tasks as $index => $task) {
+        // Procura a tarefa pelo ID
         if ($task['id'] == $id) {
             unset($tasks[$index]);
             $found = true;
@@ -90,6 +92,26 @@ function deleteTask($id){
         $tasks = array_values($tasks);  // reindexar
         file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
         echo "Tarefa $id deletada com sucesso!\n";
+    } else {
+        echo "Tarefa com ID $id não encontrada.\n";
+    }
+}
+function updateTask($id, $newDescription) {
+    $tasks = loadTasks();
+    $found = false;
+    
+    foreach ($tasks as &$task) {
+        if ($task['id'] == $id) {
+            $task['description'] = $newDescription;
+            $task['UpdatedAt'] = date("Y-m-d H:i:s");
+            $found = true;
+            break;
+        }
+    }
+
+    if ($found) {
+        file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+        echo "Tarefa $id atualizada com sucesso!\n";
     } else {
         echo "Tarefa com ID $id não encontrada.\n";
     }
@@ -125,4 +147,13 @@ elseif (isset($argv[1])&&($argv[1]=="delete")){
     } else {
         echo "Forneça um ID para a tarefa. \n";
     }
+} elseif (isset($argv[1]) && $argv[1] == "update") {
+    if (isset($argv[2]) && isset($argv[3])) {
+        updateTask($argv[2], $argv[3]);
+    } else {
+        echo "Forneça o ID e a nova descrição.\n";
+    }
 }
+else {
+    echo "Comando não reconhecido. Use 'add', 'list', 'mark-in-progress', 'mark-done' ou 'delete'.\n";
+} 

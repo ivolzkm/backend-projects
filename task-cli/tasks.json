@@ -15,9 +15,9 @@
     },
     {
         "id": 4,
-        "description": "Estudar PHP",
+        "description": "Estudar PHP e praticar projetos",
         "status": "todo",
         "CreatedAt": "2026-01-28 12:08:48",
-        "UpdatedAt": "2026-01-28 12:08:48"
+        "UpdatedAt": "2026-01-28 23:01:12"
     }
 ]
