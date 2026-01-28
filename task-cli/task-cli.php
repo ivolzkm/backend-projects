@@ -75,6 +75,26 @@ function updateTaskStatus($id, $newStatus){
     }
 }
 
+function deleteTask($id){
+    $tasks = loadTasks();
+    $found = false;
+    foreach ($tasks as $index => $task) {
+        if ($task['id'] == $id) {
+            unset($tasks[$index]);
+            $found = true;
+            break;
+        }
+    }
+    
+    if ($found) {
+        $tasks = array_values($tasks);  // reindexar
+        file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+        echo "Tarefa $id deletada com sucesso!\n";
+    } else {
+        echo "Tarefa com ID $id não encontrada.\n";
+    }
+}
+
 //Verifica se o usuário está adicionando uma tarefa, executando a função "addTask" se verdadeiro.
 if (isset($argv[1]) && $argv[1] == "add") {
     if (isset($argv[2])) {
@@ -97,5 +117,12 @@ elseif (isset($argv[1]) && $argv[1] == "mark-done") {
         updateTaskStatus($argv[2], "done");
     } else {
         echo "Forneça o ID da tarefa.\n";
+    }
+}
+elseif (isset($argv[1])&&($argv[1]=="delete")){
+    if (isset($argv[2])) {
+        deleteTask($argv[2]);
+    } else {
+        echo "Forneça um ID para a tarefa. \n";
     }
 }

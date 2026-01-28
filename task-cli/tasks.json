@@ -14,13 +14,6 @@
         "UpdatedAt": "2026-01-28 13:15:55"
     },
     {
-        "id": 3,
-        "description": "Comprar leite",
-        "status": "todo",
-        "CreatedAt": "2026-01-28 12:08:43",
-        "UpdatedAt": "2026-01-28 12:08:43"
-    },
-    {
         "id": 4,
         "description": "Estudar PHP",
         "status": "todo",
