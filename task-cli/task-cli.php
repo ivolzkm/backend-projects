@@ -37,12 +37,33 @@ function addTask($description){
 
 }
 
+function listTasks($filter = null){
+    $tasks = loadTasks();
+    
+    if (empty($tasks)) {
+        echo "Nenhuma tarefa encontrada.\n";
+        return;
+    }
+    
+    foreach ($tasks as $task) {
+        // Se tem filtro E o status não bate, pula esta tarefa
+        if ($filter !== null && $task['status'] !== $filter) {
+            continue;
+        }
+        
+        // Exibe a tarefa
+        echo "[{$task['id']}] {$task['description']} - Status: {$task['status']}\n";
+    }
+}
+
 //Verifica se o usuário está adicionando uma tarefa, executando a função "addTask" se verdadeiro.
 if (isset($argv[1]) && $argv[1] == "add") {
     if (isset($argv[2])) {
         addTask($argv[2]);
     } else {
-    echo"Forneça uma tarefa para adicionar.";
+        echo "Forneça uma tarefa para adicionar.\n";
     }
+} elseif (isset($argv[1]) && $argv[1] == "list") {  // <- elseif
+    $filter = isset($argv[2]) ? $argv[2] : null;
+    listTasks($filter);
 }
-
