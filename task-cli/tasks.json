@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "description": "Comprar",
+        "status": "todo",
+        "CreatedAt": "2026-01-27 14:22:19",
+        "UpdatedAt": "2026-01-27 14:22:19"
+    },
+    {
+        "id": 2,
+        "description": "Comprar leite",
+        "status": "todo",
+        "CreatedAt": "2026-01-27 14:22:35",
+        "UpdatedAt": "2026-01-27 14:22:35"
+    }
+]
