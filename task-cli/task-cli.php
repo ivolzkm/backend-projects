@@ -3,10 +3,11 @@
 
 function loadTasks(){
     $filename = "tasks.json";
-
+    //Verifica se o arquivo "tasks.json" existe, se não existir cria e abre um "[]"
     if (!file_exists($filename)){
         file_put_contents($filename, "[]");
     }
+    //Cria o json para as tarefas. 
     $json = file_get_contents($filename);
     $tasks = json_decode($json, true);
     
@@ -32,9 +33,11 @@ function addTask($description){
     $tasks[] = $newTask;
     //salva de volta no arquivo tasks.json
     file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+    echo "Tarefa adicionada com sucesso! (ID: $newId)\n";
+
 }
 
-
+//Verifica se o usuário está adicionando uma tarefa, executando a função "addTask" se verdadeiro.
 if (isset($argv[1]) && $argv[1] == "add") {
     if (isset($argv[2])) {
         addTask($argv[2]);

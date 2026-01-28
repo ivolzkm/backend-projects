@@ -12,5 +12,19 @@
         "status": "todo",
         "CreatedAt": "2026-01-27 14:22:35",
         "UpdatedAt": "2026-01-27 14:22:35"
+    },
+    {
+        "id": 3,
+        "description": "Comprar leite",
+        "status": "todo",
+        "CreatedAt": "2026-01-28 12:08:43",
+        "UpdatedAt": "2026-01-28 12:08:43"
+    },
+    {
+        "id": 4,
+        "description": "Estudar PHP",
+        "status": "todo",
+        "CreatedAt": "2026-01-28 12:08:48",
+        "UpdatedAt": "2026-01-28 12:08:48"
     }
 ]
