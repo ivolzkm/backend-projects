@@ -56,6 +56,25 @@ function listTasks($filter = null){
     }
 }
 
+function updateTaskStatus($id, $newStatus){
+    $tasks = loadTasks();
+    $found = false;
+    foreach($tasks as &$task){
+    if ($task['id']==$id){
+          $task['status']=$newStatus;  
+          $task['UpdatedAt'] = date("Y-m-d H:i:s");
+          $found = true;
+          break;
+        }
+    }
+    if ($found){
+        file_put_contents("tasks.json", json_encode($tasks, JSON_PRETTY_PRINT));
+        echo "Tarefa $id atualizada para '$newStatus' ! \n";
+    } else {
+        echo "Tarefa não encontrada";
+    }
+}
+
 //Verifica se o usuário está adicionando uma tarefa, executando a função "addTask" se verdadeiro.
 if (isset($argv[1]) && $argv[1] == "add") {
     if (isset($argv[2])) {
@@ -66,4 +85,17 @@ if (isset($argv[1]) && $argv[1] == "add") {
 } elseif (isset($argv[1]) && $argv[1] == "list") {  // <- elseif
     $filter = isset($argv[2]) ? $argv[2] : null;
     listTasks($filter);
+} elseif (isset($argv[1]) && $argv[1] == "mark-in-progress") {
+    if (isset($argv[2])) {
+        updateTaskStatus($argv[2], "in-progress");
+    } else {
+        echo "Forneça o ID da tarefa.\n";
+    }
+}
+elseif (isset($argv[1]) && $argv[1] == "mark-done") {
+    if (isset($argv[2])) {
+        updateTaskStatus($argv[2], "done");
+    } else {
+        echo "Forneça o ID da tarefa.\n";
+    }
 }
